@@ -88,6 +88,16 @@ class TestAnalyzer(unittest.TestCase):
         game.play(10)
         self.analyzer = Analyzer(game)
 
+    def test_init(self):
+        """Test Analyzer initialization"""
+        faces = np.array([1,2,3,4,5,6])
+        die1 = Die(faces)
+        die2 = Die(faces)
+        game = Game([die1, die2])
+        analyzer = Analyzer(game)
+        self.assertIsInstance(analyzer.game,Game)
+        self.assertIsInstance(analyzer.results, pd.DataFrame)
+
     def test_jackpot(self):
         """Test computing the number of jackpots."""
         jackpots = self.analyzer.jackpot()
