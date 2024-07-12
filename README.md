@@ -1,5 +1,4 @@
 # ds5100-finalproject-lgr2sge
-DS5100 final project
 
 
 Title: Montecarlo Simulator 
@@ -34,18 +33,30 @@ Code Snippets:
 '''python
 
 faces = np.array([1,2,3,4,5,6])
+
 die1 = Die(faces)
+
 die2 = Die(faces)
 
 
+
+
 game = Game([die1, die2])
+
 game.play(10)
 
 
+
+
+
 analyzer = Analyzer(game)
+
 jackpot_count = analyzer.jackpot()
+
 face_counts = analyzer.face_counts_per_roll()
+
 combo_counts = analyzer.combo_count()
+
 permutation_counts = analyzer.permutation_counts()
 
 '''
@@ -55,7 +66,8 @@ permutation_counts = analyzer.permutation_counts()
 API Description: 
 
 Die Class - a class representing a die with N faces and associated weights 
-	Attributes
+	
+ 	Attributes
     ----------
     faces : np.ndarray
         A NumPy array of faces of the die.
@@ -118,7 +130,8 @@ Die Class - a class representing a die with N faces and associated weights
 
 
 Game Class - a class representing a game involving rolling multiple dice
-	Attributes
+	
+ 	Attributes
     ----------
     dice : list
         A list of Die objects.
@@ -157,7 +170,8 @@ Game Class - a class representing a game involving rolling multiple dice
 
 
 Analyzer Class - a class to analyze the results of a game object 
-	Attributes
+	
+ 	Attributes
     ----------
     game : Game
         The game object to analyze.
