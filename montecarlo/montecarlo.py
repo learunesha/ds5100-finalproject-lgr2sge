@@ -115,7 +115,7 @@ class Game:
         self.dice = dice
         self.results = pd.DataFrame()
 
-    def play(self, rolls: int):
+    def play(self, n_rolls):
         """
         Roll all dice a given number of times.
 
@@ -124,34 +124,35 @@ class Game:
         rolls : int
             The number of times to roll the dice.
         """
-        self.results = pd.DataFrame({i: die.roll(rolls) for i, die in enumerate(self.dice)})
+        results = []
+        for _ in range(n_rolls):
+            roll_result = [die.roll() for die in self.dice]
+            results.appened(roll_result)
+        self.results = pd.DataFrame(results)
+
 
     def show(self, form='wide'):
-        """
-        Show the results of the most recent play.
+         """
+         Display the results of the game in the specified format.
 
-        Parameters
-        ----------
-        form : str, optional
-            The format to show the results, either 'wide' or 'narrow'. Default is 'wide'.
+         Parameters:
+         form (str): The format to display the results in. 
+                'wide' returns the original DataFrame format.
+                'narrow' returns a melted DataFrame with 'Die' and 'Face' columns.
 
-        Returns
-        -------
-        pd.DataFrame
-            DataFrame with the results in the specified format.
+         Returns:
+         pd.DataFrame: The game results in the specified format.
 
-        Raises
-        ------
-        ValueError
-            If an invalid format is provided.
-        """
-        if form not in ['wide', 'narrow']:
-            raise ValueError("Invalid format. Use 'wide' or 'narrow'.")
-        
+         Raises:
+         ValueError: If the form specified is neither 'wide' nor 'narrow'.
+         """
+   
         if form == 'wide':
-            return self.results.copy()
+            return self.results
+        elif form == 'narrow':
+            return self.results.melt(var_name='Die', value_name='Face')
         else:
-            return self.results.stack().reset_index(name='face').rename(columns={'level_0': 'roll', 'level_1': 'die'})
+            raise ValueError("Invalid form specified. Use 'wide' or 'narrow'.")
 
 
 
@@ -196,7 +197,7 @@ class Analyzer:
         int
             Number of jackpots.
         """
-        return (self.results.nunique(axis=1) == 1).sum()
+        return int((self.game.nunique(axis=1) == 1).sum())
 
     def face_counts_per_roll(self):
         """
