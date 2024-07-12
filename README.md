@@ -11,56 +11,56 @@ Synopsis: This montecarlo simulator package provides the necessary tools for sim
 
 Installation: 
 
-'''bash
+	'''bash
 
-pip install -e . 
+	pip install -e . 
 
-'''
+	'''
 
 
 Import: 
 
-'''python 
+	'''python 
 
-import numpy as np
-import pandas as pd
-from montecarlo.montecarlo import Die, Game, Analyzer
+	import numpy as np
+	import pandas as pd
+	from montecarlo.montecarlo import Die, Game, Analyzer
 
-'''
+	'''
 
 
 Code Snippets: 
 
-'''python
+	'''python
 
-faces = np.array([1,2,3,4,5,6])
+	faces = np.array([1,2,3,4,5,6])
 
-die1 = Die(faces)
+	die1 = Die(faces)
 
-die2 = Die(faces)
-
-
-
-
-game = Game([die1, die2])
-
-game.play(10)
+	die2 = Die(faces)
 
 
 
 
+	game = Game([die1, die2])
 
-analyzer = Analyzer(game)
+	game.play(10)
 
-jackpot_count = analyzer.jackpot()
 
-face_counts = analyzer.face_counts_per_roll()
 
-combo_counts = analyzer.combo_count()
 
-permutation_counts = analyzer.permutation_counts()
 
-'''
+	analyzer = Analyzer(game)
+
+	jackpot_count = analyzer.jackpot()
+
+	face_counts = analyzer.face_counts_per_roll()
+
+	combo_counts = analyzer.combo_count()
+
+ 	permutation_counts = analyzer.permutation_counts()
+ 
+	'''
 
 
 
