@@ -132,27 +132,26 @@ class Game:
 
 
     def show(self, form='wide'):
-         """
-         Display the results of the game in the specified format.
-
-         Parameters:
-         form (str): The format to display the results in. 
-                'wide' returns the original DataFrame format.
-                'narrow' returns a melted DataFrame with 'Die' and 'Face' columns.
-
+        """
+        Display the results of the game in the specified format.
+        
+        Parameters:
+        form (str): The format to display the results in. 
+            'wide' returns the original DataFrame format.
+            'narrow' returns a melted DataFrame with 'Die' and 'Face' columns.
+            
          Returns:
          pd.DataFrame: The game results in the specified format.
-
+         
          Raises:
          ValueError: If the form specified is neither 'wide' nor 'narrow'.
          """
-   
-        if form == 'wide':
-            return self.results
-        elif form == 'narrow':
-            return self.results.melt(var_name='Die', value_name='Face')
-        else:
-            raise ValueError("Invalid form specified. Use 'wide' or 'narrow'.")
+         if form == 'wide':
+             return self.results
+         elif form == 'narrow':
+             return self.results.melt(var_name='Die', value_name='Face')
+         else:
+             raise ValueError("Invalid form specified. Use 'wide' or 'narrow'.")
 
 
 
