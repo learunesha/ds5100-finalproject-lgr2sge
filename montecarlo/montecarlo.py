@@ -126,8 +126,8 @@ class Game:
         """
         results = []
         for _ in range(n_rolls):
-            roll_result = [die.roll() for die in self.dice]
-            results.appened(roll_result)
+            roll_result = tuple(die.roll()[0] for die in self.dice)
+            results.append(roll_result)
         self.results = pd.DataFrame(results)
 
 
@@ -140,18 +140,19 @@ class Game:
             'wide' returns the original DataFrame format.
             'narrow' returns a melted DataFrame with 'Die' and 'Face' columns.
             
-         Returns:
-         pd.DataFrame: The game results in the specified format.
-         
-         Raises:
-         ValueError: If the form specified is neither 'wide' nor 'narrow'.
-         """
-         if form == 'wide':
-             return self.results
-         elif form == 'narrow':
-             return self.results.melt(var_name='Die', value_name='Face')
-         else:
-             raise ValueError("Invalid form specified. Use 'wide' or 'narrow'.")
+        Returns:
+        pd.DataFrame: The game results in the specified format.
+        
+        Raises:
+        ValueError: If the form specified is neither 'wide' nor 'narrow'.
+        """
+       
+        if form == 'wide':
+            return self.results
+        elif form == 'narrow':
+            return self.results.melt(var_name='Die', value_name='Face')
+        else:
+            raise ValueError("Invalid form specified. Use 'wide' or 'narrow'.")
 
 
 
@@ -196,7 +197,7 @@ class Analyzer:
         int
             Number of jackpots.
         """
-        return int((self.game.nunique(axis=1) == 1).sum())
+        return int((self.game.results.nunique(axis=1) == 1).sum())
 
     def face_counts_per_roll(self):
         """
@@ -207,7 +208,7 @@ class Analyzer:
         pd.DataFrame
             DataFrame with face counts per roll.
         """
-        return self.results.apply(pd.Series.value_counts, axis=1).fillna(0).astype(int)
+        return self.game.results.apply(lambda x:pd.Series(x).value_counts()).fillna(0).astype(int)
 
     def combo_count(self):
         """

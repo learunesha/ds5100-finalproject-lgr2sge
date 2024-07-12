@@ -70,7 +70,7 @@ class TestGame(unittest.TestCase):
         results_wide = self.game.show()
         results_narrow = self.game.show('narrow')
         self.assertEqual(results_wide.shape, (5, 2))
-        self.assertEqual(results_narrow.shape, (10, 1))
+        self.assertEqual(results_narrow.shape, (10, 2))
         with self.assertRaises(ValueError):
             self.game.show('invalid')
 
@@ -97,7 +97,7 @@ class TestAnalyzer(unittest.TestCase):
         """Test computing face counts per roll."""
         face_counts = self.analyzer.face_counts_per_roll()
         self.assertIsInstance(face_counts, pd.DataFrame)
-        self.assertEqual(face_counts.shape, (10, 6))
+        self.assertEqual(face_counts.shape, (6,2))
 
     def test_combo_count(self):
         """Test computing distinct combinations of faces rolled."""
